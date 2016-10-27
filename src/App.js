@@ -2,19 +2,28 @@ import React, { Component } from 'react';
 import './App.css';
 import InputSubmission from './InputSubmission';
 import ZipsList from './ZipsList';
+// import FetchResults from './FetchResults';
+// import axios from 'axios';
 
 class App extends Component {
   constructor(){
     super();
     
     this.state = { zips: [] };
+    // this.state = { zips: [], results: [] };
   
 }
 componentDidMount() {
   let zipsFromStorage = localStorage.getItem('zips');
   zipsFromStorage = JSON.parse(zipsFromStorage);
 
-  this.setState({zips: zipsFromStorage ? zipsFromStorage : []});
+  this.setState({zips: zipsFromStorage ? zipsFromStorage : [], results: []});
+  // axios.get(`https://api.open.fec.gov/v1/committee/C00575795/schedules/schedule_a/by_zip/?api_key=nf4kDqBq4hjGmFR5gMmBc8XWjlwCWDFdHK9GoerZ&page=370&per_page=50.json`)
+  //   .then(function(response){
+  //     console.log(response.data);
+  //     console.log(response.status);
+  //     this.setState({ results });
+  //   });
 }
 
 addZip(zip) {
@@ -36,9 +45,9 @@ addZip(zip) {
 
     render() {
       return (
-        <div>
+        <div id="main">
+          <h1>FECensus</h1>
           <InputSubmission sendZip={ this.addZip.bind(this) } />
-
           <ZipsList zips={ this.state.zips } handleDeleteZip={ this.deleteZip.bind(this) } />
         </div>
       );

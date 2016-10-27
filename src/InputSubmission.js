@@ -24,7 +24,7 @@ class InputSubmission extends Component {
             onChange={ ( event ) => this.setState({ zip: event.target.value }) }
              /><br/>
 
-          <button onClick={ this.handleClick.bind(this) } >Submit</button>
+          <button id="button" onClick={ this.handleClick.bind(this) } >Submit</button>
         </div>
       )
   }

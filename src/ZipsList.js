@@ -14,7 +14,7 @@ const Zip = ( { zip, id, handleDelete } ) => {
   return(
     <div id={id} className="idea">
       <h1>{zip}</h1>
-      <button onClick={ () => handleDelete(id) } >Delete</button>
+      <button id="button" onClick={ () => handleDelete(id) } >Delete</button>
     </div>
   )
 }
