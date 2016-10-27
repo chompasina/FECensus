@@ -3,14 +3,14 @@ import './App.css';
 import InputSubmission from './InputSubmission';
 import ZipsList from './ZipsList';
 // import FetchResults from './FetchResults';
-// import axios from 'axios';
+import axios from 'axios';
 
 class App extends Component {
   constructor(){
     super();
     
-    this.state = { zips: [] };
-    // this.state = { zips: [], results: [] };
+    // this.state = { zips: [] };
+    this.state = { zips: [], results: [] };
   
 }
 componentDidMount() {
@@ -18,12 +18,12 @@ componentDidMount() {
   zipsFromStorage = JSON.parse(zipsFromStorage);
 
   this.setState({zips: zipsFromStorage ? zipsFromStorage : [], results: []});
-  // axios.get(`https://api.open.fec.gov/v1/committee/C00575795/schedules/schedule_a/by_zip/?api_key=nf4kDqBq4hjGmFR5gMmBc8XWjlwCWDFdHK9GoerZ&page=370&per_page=50.json`)
-  //   .then(function(response){
-  //     console.log(response.data);
-  //     console.log(response.status);
-  //     this.setState({ results });
-  //   });
+  axios.get('https://api.open.fec.gov/v1/committee/C00575795/schedules/schedule_a/by_zip/?api_key=nf4kDqBq4hjGmFR5gMmBc8XWjlwCWDFdHK9GoerZ&page=370')
+    .then(function(response){
+      console.log(response.data);
+      console.log(response.status);
+      this.setState({ results: response.data });
+    });
 }
 
 addZip(zip) {
