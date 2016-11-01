@@ -7,13 +7,13 @@ h1 {
   margin-left: 50px;
 }
 
-#button {
+.button {
   border: 1px solid;
   border-radius: 10px;
   background-color: darkblue;
   color: azure;
 }
 
-#button:hover {
+.button:hover {
   background-color: crimson;
 }

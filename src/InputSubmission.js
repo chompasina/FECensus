@@ -5,44 +5,39 @@ class InputSubmission extends Component {
   constructor(){
     super();
     
-      this.state = { zip: '', response: ''};
+      this.state = { zip: '', response: '', hillaryList: '', trumpList: ''};
   }
   
-  handleClick(e) {
-    this.fetchByZip(this.state.zip); 
-    // this.props.sendZip( Object.assign(this.state.zip, {id: Date.now()}) );
-    // this.setState( {zip: '', result: ''} );
+  handleClickTrump(e) {
+    this.fetchTrump(this.state.zip, 'C00580100'); 
   }
   
-  fetchByZip(zip){
-    axios.get(`https://api.open.fec.gov/v1/schedules/schedule_a/by_zip/?api_key=nf4kDqBq4hjGmFR5gMmBc8XWjlwCWDFdHK9GoerZ&zip=${zip}&page=1&per_page=100&cycle=2016`)
+  handleClickHillary(e) {
+    this.fetchHillary(this.state.zip, 'C00575795'); 
+    }
+    
+  handleClickBoth(e){
+    this.fetchHillary(this.state.zip, 'C00575795');
+    this.fetchTrump(this.state.zip, 'C00580100');
+  }
+  
+  fetchHillary(zip, committee){
+    axios.get(`https://api.open.fec.gov/v1/committee/${committee}/schedules/schedule_a/by_zip/?api_key=nf4kDqBq4hjGmFR5gMmBc8XWjlwCWDFdHK9GoerZ&zip=${zip}&page=1&per_page=100`)
       .then(res => {
         console.log(res.data.results);
-        const response = res.data.results;
-        this.setState({ response });
+        const hillaryList = res.data.results;
+        this.setState({ hillaryList });
       });
   }
   
-  fetchTrump(){
-    let list = '';
-    this.state.response.map((item) => { 
-      if(item.committee_id === 'C00580100'){
-        list = <li key={item.committee_id + item.total + item.count}>Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full}, Cycle: {item.cycle}</li>
-      }
-    } ) 
-    return list
+  fetchTrump(zip, committee){
+    axios.get(`https://api.open.fec.gov/v1/committee/${committee}/schedules/schedule_a/by_zip/?api_key=nf4kDqBq4hjGmFR5gMmBc8XWjlwCWDFdHK9GoerZ&zip=${zip}&page=1&per_page=100`)
+      .then(res => {
+        console.log(res.data.results);
+        const trumpList = res.data.results;
+        this.setState({ trumpList });
+      });
   }
-  
-  fetchHillary(){
-    let list = '';
-    this.state.response.map((item) => { 
-      if(item.committee_id === 'C00575795'){
-        list = <li key={item.committee_id + item.total + item.count}>Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full}, Cycle: {item.cycle}</li>
-      }
-    } ) 
-    return list
-  }
-
   
   render() {
       return (
@@ -54,14 +49,23 @@ class InputSubmission extends Component {
             onChange={ ( event ) => this.setState({ zip: event.target.value }) }
              /><br/>
 
-          <button id="button" onClick={ this.handleClick.bind(this) }>Submit</button>
+          <button className="button" id="hillary-button" onClick={ this.handleClickHillary.bind(this) }>Submit to see funding for Hillary within this zipcode</button>
+          <button className="button" id="trump-button" onClick={ this.handleClickTrump.bind(this) }>Submit to see funding for Trump within this zipcode</button>
+          <button className="button" id="both-button" onClick={ this.handleClickBoth.bind(this) }>Submit to compare candidates for this zipcode</button>
           
           <ul>
-          {this.state.response ? this.fetchTrump() : <li>"Please submit a zipcode to see the data"</li> }
+            <li> Trump donations:{this.state.trumpList ? this.state.trumpList.map(item => <p key={item.committee_id + item.total + item.count}>Trump Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full} Cycle: {item.cycle}}</p>) : '' }</li>
+            <li> Hillary donations:{this.state.hillaryList ? this.state.hillaryList.map(item => <p key={item.committee_id + item.total + item.count}>Hillary Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full}, Cycle: {item.cycle}</p>) : '' }</li>
           </ul>
         </div>
       )
   }
 }
 
+
 export default InputSubmission;
+
+
+
+
+
