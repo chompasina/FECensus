@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+// import Datamap from './Datamap';
 
 class States extends Component {
   constructor(){
@@ -24,6 +25,8 @@ class States extends Component {
       });
     };
   
+  
+    // { Datamap }
   
   render(){
     return (
