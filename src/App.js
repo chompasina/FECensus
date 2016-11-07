@@ -3,6 +3,7 @@ import './App.css';
 import InputSubmission from './InputSubmission';
 import YearToDate from './YearToDate';
 import States from './States';
+import Datamap from './Datamap';
 // import axios from 'axios';
 
 class App extends Component {
@@ -24,6 +25,7 @@ componentDidMount() {
           <States/>
           <InputSubmission/>
           <YearToDate/>
+          <Datamap/>
         </div>
       );
     }

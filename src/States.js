@@ -26,8 +26,6 @@ class States extends Component {
     };
   
   
-    // { Datamap }
-  
   render(){
     return (
       <div className='states'  >
