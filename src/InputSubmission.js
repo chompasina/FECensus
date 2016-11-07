@@ -54,18 +54,13 @@ class InputSubmission extends Component {
           <button className="button" id="both-button" onClick={ this.handleClickBoth.bind(this) }>Submit to compare candidates for this zipcode</button>
           
           <ul>
-            <li> Trump donations:{this.state.trumpList ? this.state.trumpList.map(item => <p key={item.committee_id + item.total + item.count}>Trump Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full} Cycle: {item.cycle}}</p>) : '' }</li>
-            <li> Hillary donations:{this.state.hillaryList ? this.state.hillaryList.map(item => <p key={item.committee_id + item.total + item.count}>Hillary Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full}, Cycle: {item.cycle}</p>) : '' }</li>
+            <li> Trump donations:{this.state.trumpList ? this.state.trumpList.map(item => <p key={item.committee_id + item.total + item.count}>Trump Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full} Cycle: {item.cycle}</p>) : 'No donations' }</li>
+            <li> Hillary donations:{this.state.hillaryList ? this.state.hillaryList.map(item => <p key={item.committee_id + item.total + item.count}>Hillary Total: {item.total}, Committee ID: {item.committee_id} State: {item.state_full}, Cycle: {item.cycle}</p>) : 'No donations' }</li>
           </ul>
         </div>
-      )
+      );
   }
 }
 
 
 export default InputSubmission;
-
-
-
-
-
